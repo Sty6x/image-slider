@@ -37,22 +37,26 @@ function slideImage(target) {
 
 }
 function changeIndicator(i) {
-  if (indicator.children[i].classList.contains('dot')) {
-    indicator.children[i].classList.remove('dot')
-    indicator.children[i].classList.add('active-dot')
-    console.log(indicator.children[i].previousElementSibling)
-    if (indicator.children[i].previousElementSibling.classList.contains('active-dot')) {
-      indicator.children[i].previousElementSibling.classList.remove('active-dot')
-      indicator.children[i].previousElementSibling.classList.add('dot')
+  const nextDot = indicator.children[i].nextElementSibling
+  const currentDot = indicator.children[i]
+  const previousDot = indicator.children[i].previousElementSibling
+  // applies class on current dot
+  if (currentDot.classList.contains('dot')) {
+    currentDot.classList.remove('dot')
+    currentDot.classList.add('active-dot')
+    // checks previous and next sibling of the current dot 
+    if (i > 0 && previousDot.classList.contains('active-dot')) {
+      previousDot.classList.remove('active-dot')
+      previousDot.classList.add('dot')
     }
-    else if (indicator.children[i].nextElementSibling.classList.contains('active-dot')) {
-      indicator.children[i].nextElementSibling.classList.add('dot')
-      indicator.children[i].nextElementSibling.classList.remove('active-dot')
+    if (nextDot.classList.contains('active-dot')) {
+      nextDot.classList.add('dot')
+      nextDot.classList.remove('active-dot')
     }
   }
 }
 
 
 function changeImage(a) {
-  img.src = a;
+  img.setAttribute('src', a)
 }
