@@ -22,14 +22,14 @@ function slideImage(target) {
 
   if (target.matches('#previous-arrow')) {
     i--
-    i < 0 ? i = 0 : 'array out of scope'
+    i < 0 ? i = 0 : 'range out of scope'
     console.log(i)
     changeIndicator(i)
     changeImage(imagesArr[i])
   }
   else if (target.matches('#next-arrow')) {
     i++
-    i > 4 ? i = 4 : 'array out of scope'
+    i > 4 ? i = 4 : 'range out of scope'
     console.log(i)
     changeIndicator(i)
     changeImage(imagesArr[i])
@@ -49,7 +49,7 @@ function changeIndicator(i) {
       previousDot.classList.remove('active-dot')
       previousDot.classList.add('dot')
     }
-    if (nextDot.classList.contains('active-dot')) {
+    if (i < 4 && nextDot.classList.contains('active-dot')) {
       nextDot.classList.add('dot')
       nextDot.classList.remove('active-dot')
     }
@@ -59,4 +59,8 @@ function changeIndicator(i) {
 
 function changeImage(a) {
   img.setAttribute('src', a)
+  img.setAttribute('class', 'anim-img')
+  setTimeout(e => {
+    img.removeAttribute('class', 'anim-img')
+  }, 200)
 }
