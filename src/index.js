@@ -13,13 +13,8 @@ let i = 0
 const imagesArr = [shopImg, tablesImg, telephoneImg, cameraImg, machineImg]
 img.src = imagesArr[0]
 
-main.addEventListener('click', e => {
-  const target = e.target;
-  slideImage(target)
-})
 
 function slideImage(target) {
-
   if (target.matches('#previous-arrow')) {
     i--
     i < 0 ? i = 0 : 'range out of scope'
@@ -34,8 +29,14 @@ function slideImage(target) {
     changeIndicator(i)
     changeImage(imagesArr[i])
   }
-
 }
+
+function autoSlideImage(i) {
+  i > 4 ? i = 4 : 'range out of scope'
+  changeIndicator(i)
+  changeImage(imagesArr[i])
+}
+
 function changeIndicator(i) {
   const nextDot = indicator.children[i].nextElementSibling
   const currentDot = indicator.children[i]
@@ -60,7 +61,26 @@ function changeIndicator(i) {
 function changeImage(a) {
   img.setAttribute('src', a)
   img.setAttribute('class', 'anim-img')
-  setTimeout(e => {
+  setTimeout(() => {
     img.removeAttribute('class', 'anim-img')
   }, 200)
 }
+
+
+let target
+main.addEventListener('click', e => {
+  target = e.target;
+  slideImage(target)
+})
+
+
+setInterval(() => {
+  if (i < 4) {
+    i++
+    autoSlideImage(i)
+  } else if (i === 4) {
+    i = 0;
+    autoSlideImage(i)
+  }
+}, 1000)
+
